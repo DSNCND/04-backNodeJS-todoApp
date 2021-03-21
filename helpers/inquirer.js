@@ -1,6 +1,40 @@
+//const 
+
 const inquirer = require('inquirer');
 const { clearLine } = require('inquirer/lib/utils/readline');
 require('colors');
+
+
+const inquirerTasksMenu = async (tasks) => 
+{
+    let choices = []
+    this.tasks = tasks;
+
+    this.tasks.forEach((e,i) => 
+    {
+        console.log(e)
+        let a = {value: e, name: `${`${i+1}`.blue} task: ${e.title} - done: ${e.done}`} //agregar fecha --> - created: ${e.created} una vez formateada
+        choices.push(a)
+    });
+    console.log(choices)
+
+    const tasksMenu =
+    [
+        {
+            type: 'list',
+            name: 'task',
+            message: 'completed task',
+            choices,
+        }
+    ]
+    
+    console.log('================================'.blue);
+    console.log('Select a task'.white);
+    console.log('================================'.blue);
+    const option = await inquirer.prompt(tasksMenu);
+
+    return option;
+}
 
 const menu = 
 [
@@ -19,11 +53,21 @@ const menu =
                 value: 2,
                 name: `${'2-'.blue} Get tasks`,
             },
+            
+            {
+                value: 3,
+                name: `${`3-`.blue} Change State task`,
+            },
+
+            {
+                value: 4,
+                name: `${`4-`.blue} Delete task`,
+            },
 
             {
                 value: 0,
-                name: `${`3-`.blue} Salir`,
-            }
+                name: `${`4-`.blue} Salir`,
+            },
         ]
 
     }
@@ -59,4 +103,5 @@ module.exports =
 {
     inquirerMenu,
     inquirerInput,
+    inquirerTasksMenu,
 }

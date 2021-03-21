@@ -35,15 +35,37 @@ class TaskRepository{
         saveData(this._tasks);
     }
 
-    deleteTask()
-    {
-
+    deleteTask(task)
+    {   
+        this._tasks = this._tasks.filter((e)=> e.id!==task.id);
+        saveData(this._tasks);
     }
 
-    conpleteTask()
+    completeTask(task)
     {
-
+        this._tasks.forEach(e =>
+        {
+            console.log("==============")
+            
+            if(e.id===task.id)
+            {
+                if(e.done==false)
+                {
+                    e.done=true;
+                    e.finished = new Date()
+                }
+                else
+                { 
+                    e.done=false 
+                    e.finished = null;
+                }
+                console.log(e)
+            }
+            
+        });
+        saveData(this._tasks);
     }
+
 
 }
 

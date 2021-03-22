@@ -22,12 +22,6 @@ class TaskRepository{
         return this._tasks;        
     }
 
-//
-//    @param {String} title
-//
-// TODO: Nos falta persistir datos en archivo
-//
-
     createTask(title)
     {
         const task = new Task(title);
@@ -45,7 +39,6 @@ class TaskRepository{
     {
         this._tasks.forEach(e =>
         {
-            console.log("==============")
             
             if(e.id===task.id)
             {
@@ -59,7 +52,6 @@ class TaskRepository{
                     e.done=false 
                     e.finished = null;
                 }
-                console.log(e)
             }
             
         });

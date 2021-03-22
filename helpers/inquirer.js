@@ -9,21 +9,22 @@ const inquirerTasksMenu = async (tasks) =>
 {
     let choices = []
     this.tasks = tasks;
-
+    
     this.tasks.forEach((e,i) => 
     {
-        console.log(e)
         let a = {value: e, name: `${`${i+1}`.blue} task: ${e.title} - done: ${e.done}`} //agregar fecha --> - created: ${e.created} una vez formateada
         choices.push(a)
     });
-    console.log(choices)
 
+    const cancel = {name: `${`${choices.length+1}`.blue} cancel`}
+    choices.push(cancel);
+    
     const tasksMenu =
     [
         {
             type: 'list',
             name: 'task',
-            message: 'completed task',
+            message: 'choose',
             choices,
         }
     ]
@@ -66,7 +67,7 @@ const menu =
 
             {
                 value: 0,
-                name: `${`4-`.blue} Salir`,
+                name: `${`5-`.blue} Exit`,
             },
         ]
 

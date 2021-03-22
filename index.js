@@ -1,5 +1,5 @@
 const {inquirerInput, inquirerMenu, inquirerTasksMenu} = require('./helpers/inquirer')
-const {getAllTasks, createTask, completeTask, deleteTask} = require('./services/fileService')
+const {getAllTasks, getTasks, createTask, completeTask, deleteTask} = require('./services/fileService')
 
 
 const main = async() => 
@@ -9,51 +9,45 @@ const main = async() =>
     
     //
     const choices = 
-    [   ()=> console.log('El usuario seleccionó la opcion salir'),  //opcion 0 - si uso un do while podria darle utilidad a esta posicion del array
-        //,
+    [   //opcion 0 - si uso un do while podria darle utilidad a esta posicion del array
+        ()=> console.log('El usuario seleccionó la opcion salir'), 
+        
+        //opcion 1
         async ()=>
         {
-            //opcion 1
             console.log('El usuario seleccionó la opcion crear tarea: ')
             const title = await inquirerInput('Task Title');
-            console.log(title);
             createTask(title);
         },
 
+        //opcion 2
         ()=>
-        {
-            //opcion 2 
+        { 
             getAllTasks();
         },
 
+        //opcion 3 - completar tarea - me deja cambiar el estado de la tarea
         async ()=>
         {
-            //opcion 3 - completar tarea - me deja cambiar el estado de la tarea
-            const value = await inquirerTasksMenu(getAllTasks());
-            console.log(value);
+            const value = await inquirerTasksMenu(getTasks());
             completeTask(value.task); // el objeto task esta dentro del objeto que me devuelve el menu
         },
 
         async ()=>
         {
             //opcion 4 - borrar tarea
-            console.log("delete task")
-            const value = await inquirerTasksMenu(getAllTasks());
+            const value = await inquirerTasksMenu(getTasks());
 
             //decirle a task repository que elimine el objeto elegido
-            deleteTask(value.task); //TODO faltaria dar la opcion de confirmar/o cancelar
+            deleteTask(value.task);
         }
     ]
-    
     //
         
     while(option!==0)
     {
-
-        console.log(option)
         await choices[option]();
         option = await inquirerMenu();
-
     }
 
 }
